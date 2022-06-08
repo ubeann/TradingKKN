@@ -33,7 +33,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 Ajukan Permintaan</a>
-            <a href="{{ route('create.form') }}" class="btn btn-warning rounded-4 col">
+            <a href="{{ route('taken.show') }}" class="btn btn-warning rounded-4 col">
                 <svg style="height: 24px" class="me-2" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76" />
                   </svg>
@@ -47,10 +47,8 @@
                 Filter Pencarian
               </a>
               <div class="collapse p-0" id="collapseExample">
-            <form class="card shadow p-4 rounded-4 mt-4" action="{{route('create.store')}}" method="post" style="max-width: 700px">
+            <form class="card shadow p-4 rounded-4 mt-4" action="{{route('landing')}}" method="get" style="max-width: 700px">
                 {{-- <h3 class="mb-4">Pencarian Filter</h3> --}}
-
-                @csrf
                 {{-- Show Error --}}
                 @if ($errors->any())
                 <div class="alert alert-danger">
@@ -65,14 +63,14 @@
                 @endif
 
                 <div class="mb-3">
-                    <label for="gender">Gender*</label>
+                    <label for="gender">Gender</label>
                     <div class="form-check">
-                        <input class="" type="radio" id="male" name="gender" value="male" @if (old('gender')=='male' )
+                        <input class="" type="radio" id="male" name="gender" value="male" @if (request()->gender=='male' )
                             checked @endif>
                         <label for="male">Laki-laki</label>
                     </div>
                     <div class="form-check">
-                        <input class="" type="radio" id="female" name="gender" value="female" @if (old('gender')=='female' )
+                        <input class="" type="radio" id="female" name="gender" value="female" @if (request()->gender=='female' )
                             checked @endif>
                             <label for="female">Perempuan</label>
                     </div>
@@ -81,11 +79,11 @@
                 <hr>
 
                 <div class="mb-3">
-                    <label>Wilayah Asal KKN*</label>
+                    <label>Wilayah Asal KKN</label>
                     <select class="form-select" name="origin_city" id="origin_city">
                         <option selected disabled>Pilih Kota</option>
                         @foreach ($cities as $city)
-                        <option value="{{$city}}" @if (old('origin_city')==$city) selected @endif>{{$city}}</option>
+                        <option value="{{$city}}" @if (request()->origin_city==$city) selected @endif>{{$city}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -95,7 +93,7 @@
                 <div class="mb-3">
                     <div class="d-flex">
                         <div class="">
-                            <label>Wilayah Tujuan Penukaran KKN*</label>
+                            <label>Wilayah Tujuan Penukaran KKN</label>
                         </div>
                         <div class="checkbox d-flex justify-content-end" style="width: 100%">
                             <label class="" for="all">
@@ -112,7 +110,7 @@
                             <label for="{{$city}}" class="checkbox-wrapper">
                                 <input class="checkbox-input" type="checkbox" id="{{$city}}" name="destination_city[]" value="{{$city}}"
                                     @if (in_array($city,
-                                    old('destination_city') ?? [])) checked
+                                    request()->destination_city ?? [])) checked
                                     @endif>
                                 <span class="checkbox-tile">
                                     <span class="checkbox-label">{{$city}}</span>
@@ -128,24 +126,36 @@
               </div>
         </div>
         <div class="row" style="max-width: 700px">
-            @for ($i = 0; $i < 5; $i++)
-            <div>
-                <div class="card shadow p-4 rounded-4 mt-4 me-4" action="{{route('create.store')}}" method="post" style="max-width: 700px">
-                    <div class="row">
-                        <div class="col-sm-5 col-12">
-                            <h4>Lokasi saat ini : Kebumen</h4>
-                        </div>
-                        <div class="col-sm-6 col-12">
-                            <p class="m-0"><strong>Nama : </strong>Anonim</p>
-                            <p class="m-0"><strong>Lokasi diinginkan : </strong>Banyuwangi, Kediri, Tuban, Mulyorejo, Karmen, Gresik, Pasuruan</p>
-                        </div>
-                        <div class="col-sm-1 col-12">
-                            <a href="" class="btn btn-primary py-2 px-4 me-2" style="font-size: 1rem; position:absolute; right:-40px">Hubungi</a>
+            @forelse ($submissions as $submission)
+                <div>
+                    <div class="card shadow p-4 rounded-4 mt-4 me-4" action="{{route('create.store')}}" method="post" style="max-width: 700px">
+                        <div class="row">
+                            <div class="col-sm-5 col-12">
+                                <h4>Lokasi saat ini : </br>{{$submission->origin_city}}</h4>
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <p class="m-0"><strong>Nama : </strong>{{$submission->name}}</p>
+                                <p class="m-0"><strong>Lokasi diinginkan : </strong>{{join(', ', $submission->destination)}}</p>
+                            </div>
+                            <div class="col-sm-1 col-12">
+                                <form action="{{route('taken.store')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{$submission->id}}">
+                                    <button type="submit" class="btn btn-primary py-2 px-4 me-2" style="font-size: 1rem; position:absolute; right:-40px">Hubungi</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            @endfor
+            @empty
+                <div class="card shadow p-4 rounded-4 mt-4 me-4" action="{{route('create.store')}}" method="post" style="max-width: 700px">
+                    <div class="row">
+                        <div class="col-sm-12 col-12">
+                            <h4>Sayang sekali, tidak ada permintaan yang ditemukan</h4>
+                        </div>
+                    </div>
+                </div>
+            @endforelse
         </div>
     </div>
     {{-- <div class="layer-bg w-100">

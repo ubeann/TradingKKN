@@ -7,6 +7,19 @@ use Illuminate\Http\Request;
 
 class SubmissionController extends Controller
 {
+    // Protected properties
+    protected $cities = [
+        'Surabaya', 
+        'Banyuwangi', 
+        'Jember', 
+        'Bojonegoro', 
+        'Lamongan', 
+        'Gresik', 
+        'Madiun', 
+        'Sampang',
+        'Pamekasan',
+    ];
+
     public function index(Request $request) {
         // Get all submissions
         $submissions = Submission::all()->where('status', 'open')->sortBy('created_at');
@@ -20,10 +33,10 @@ class SubmissionController extends Controller
         }
 
         // Filter by destination
-        if ($request->has('destination_cities') && $request->input('destination_cities') != null && $request->input('destination_cities') != '') {
-            $destination_cities = explode(',', $request->input('destination_cities'));
-            $submissions = $submissions->filter(function ($submission) use ($destination_cities) {
-                return in_array($submission->origin_city, $destination_cities);
+        if ($request->has('destination_city') && $request->input('destination_city') != null && $request->input('destination_city') != '') {
+            $destination_city = $request->input('destination_city');
+            $submissions = $submissions->filter(function ($submission) use ($destination_city) {
+                return in_array($submission->origin_city, $destination_city);
             });
         }
 
@@ -35,21 +48,18 @@ class SubmissionController extends Controller
             });
         }
 
-        return view('index', compact('submissions'));
+        // Cities Data
+        $cities = $this->cities;
+        sort($cities);
+
+        // Paginate Collection
+        // $submissions = $submissions->paginate(10);
+
+        return view('index', compact('submissions', 'cities'));
     }
 
     public function create() {
-        $cities = [
-            'Surabaya', 
-            'Banyuwangi', 
-            'Jember', 
-            'Bojonegoro', 
-            'Lamongan', 
-            'Gresik', 
-            'Madiun', 
-            'Sampang',
-            'Pamekasan',
-        ];
+        $cities = $this->cities;
         sort($cities);
         return view('create', compact('cities'));
     }
@@ -139,7 +149,9 @@ class SubmissionController extends Controller
             return redirect()->route('landing')->with('error', 'Anda belum mengambil permintaan penukaran KKN, silahkan ambil terlebih dahulu!');
         } else {
             $submission = Submission::find($request->cookie('submission_id'));
-            return view('show', compact('submission'));
+            $cities = $this->cities;
+            sort($cities);
+            return view('show', compact('submission', 'cities'));
         }
     }
 
