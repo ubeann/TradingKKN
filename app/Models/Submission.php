@@ -22,4 +22,12 @@ class Submission extends Model
         'username_telegram',
         'status'
     ];
+
+    protected $casts = [
+        'destination' => 'array',
+    ];
+
+    public function getDestinationAttribute($value) {
+        return json_decode($value);
+    }
 }

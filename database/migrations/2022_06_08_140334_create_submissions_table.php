@@ -15,17 +15,17 @@ return new class extends Migration
     {
         Schema::create('submissions', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->default('Anonim');
+            $table->string('name');
             $table->string('gender');
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('origin_district');
             $table->string('origin_village');
             $table->string('origin_city');
-            $table->string('destination');
-            $table->string('reason')->default('Tidak bisa disebutkan.');
+            $table->json('destination');
+            $table->string('reason');
             $table->string('username_line')->nullable();
             $table->string('username_telegram')->nullable();
-            $table->string('status')->default('Open');
+            $table->string('status')->default('open');
             $table->timestamps();
         });
     }

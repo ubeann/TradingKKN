@@ -6,15 +6,13 @@
         <img src="{{ asset('tradingkkn.png') }}" alt="" style="position: absolute; top:1px; z-index: 99; filter: drop-shadow(5px 5px 15px rgba(34, 34, 34, 0.35));">
         <div class="row">
             <form class="card shadow p-4 rounded-4" action="{{route('create.store')}}" method="post" style="max-width: 700px">
+                <h1 class="mb-5">Data Diri</h1>
+                
                 @csrf
                 {{-- Show Error --}}
                 @if ($errors->any())
                 <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+                    Silahkan isi data-data yang diperlukan.
                 </div>
                 @endif
                 {{-- Show Session Error --}}
@@ -23,7 +21,6 @@
                     {{ session('error') }}
                 </div>
                 @endif
-                <h1 class="mb-5">Data Diri</h1>
 
                 <div class="mb-3">
                     <label for="name">Nama (Tidak wajib)</label>

@@ -19,3 +19,7 @@ Route::prefix('create')->name('create.')->group(function () {
     Route::get('/', [SubmissionController::class, 'create'])->name('form');
     Route::post('/', [SubmissionController::class, 'store'])->name('store');
 });
+Route::prefix('taken')->name('taken.')->group(function () {
+    Route::get('/', [SubmissionController::class, 'taken'])->name('show');
+    Route::post('taken', [SubmissionController::class, 'take'])->name('store');
+});
