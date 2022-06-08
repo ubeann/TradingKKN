@@ -52,10 +52,13 @@ class SubmissionController extends Controller
         $cities = $this->cities;
         sort($cities);
 
+        // Check Cookies
+        $isTaken = $request->hasCookie('submission_id');
+
         // Paginate Collection
         // $submissions = $submissions->paginate(10);
 
-        return view('index', compact('submissions', 'cities'));
+        return view('index', compact('submissions', 'cities', 'isTaken'));
     }
 
     public function create() {
