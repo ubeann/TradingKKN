@@ -113,6 +113,11 @@ class SubmissionController extends Controller
     }
 
     public function take(Request $request) {
+        // Check cookie 
+        if ($request->hasCookie('submission_id')) {
+            return redirect()->route('taken.show')->with('error', 'Anda sudah mengambil permintaan KKN, silahkan batalkan terlebih dahulu!');
+        }
+
         // Validate request
         $request->validate([
             'id' => 'required|exists:submissions,id',
@@ -123,16 +128,31 @@ class SubmissionController extends Controller
             'status' => 'taken',
         ]);
 
-        // Create Cookie using Submission ID (7 days)
-        $cookie = cookie('submission_id', $request->input('id'), 60 * 24 * 30);
+        // Create Cookie using Submission ID
+        $cookie = cookie('submission_id', $request->input('id'), 60 * 24);
         return redirect()->route('taken.show')->withCookie($cookie);
     }
 
-    public function show(Submission $submission) {
-        if ($submission->status == 'open') {
-            return view('show', compact('submission'));
+    public function show(Request $request) {
+        // Check cookie
+        if (!$request->hasCookie('submission_id')) {
+            return redirect()->route('landing')->with('error', 'Anda belum mengambil permintaan KKN, silahkan ambil terlebih dahulu!');
         } else {
-            return redirect()->route('landing')->withErrors('Permintaan penukaran KKN ' . $submission->name . ' telah ditutup.');
+            $submission = Submission::find($request->cookie('submission_id'));
+            return view('show', compact('submission'));
+        }
+    }
+
+    public function cancel(Request $request) {
+        // Check cookie
+        if (!$request->hasCookie('submission_id')) {
+            return redirect()->route('landing')->with('error', 'Anda belum mengambil permintaan KKN, silahkan ambil terlebih dahulu!');
+        } else {
+            $submission = Submission::find($request->cookie('submission_id'));
+            $submission->update([
+                'status' => 'open',
+            ]);
+            return redirect()->route('landing')->with('success', 'Permintaan anda berhasil dibatalkan, silahkan mengambil kembali permintaan KKN yang lain.');
         }
     }
 }
