@@ -7,7 +7,7 @@
         <div class="row">
             <form class="card shadow p-4 rounded-4" action="{{route('create.store')}}" method="post" style="max-width: 700px">
                 <h1 class="mb-5">Data Diri</h1>
-                
+
                 @csrf
                 {{-- Show Error --}}
                 @if ($errors->any())
@@ -24,7 +24,7 @@
 
                 <div class="mb-3">
                     <label for="name">Nama (Tidak wajib)</label>
-                    <input class="form-control" type="text" name="name" id="name" placeholder="Name" value="{{old('name')}}">
+                    <input class="form-control" type="text" name="name" id="name" placeholder="Contoh: {{\Faker\Factory::create('id_ID')->name}}" value="{{old('name')}}">
                 </div>
 
                 <hr>
@@ -47,22 +47,22 @@
 
                 <div class="mb-3">
                     <label>Kontak (Minimal 1)*</label>
-                    <input class="form-control mb-2" type="text" name="phone" id="phone" placeholder="+62xxxxx phone (WA)"
+                    <input class="form-control mb-2" type="text" name="phone" id="phone" placeholder="Nomor Telepon / WA (Contoh: {{\Faker\Factory::create('id_ID')->phoneNumber}})"
                         value="{{old('phone')}}">
-                    <input class="form-control mb-2" type="text" name="username_line" id="username_line" placeholder="optional username line"
+                    <input class="form-control mb-2" type="text" name="username_line" id="username_line" placeholder="Username Line (Contoh: {{\Faker\Factory::create('id_ID')->userName}})"
                         value="{{old('username_line')}}">
                     <input class="form-control mb-2" type="text" name="username_telegram" id="username_telegram"
-                        placeholder="optional username tele" value="{{old('username_telegram')}}">
+                        placeholder="Username Telegram (Contoh: {{\Faker\Factory::create('id_ID')->userName}})" value="{{old('username_telegram')}}">
                 </div>
 
                 <hr>
 
                 <div class="mb-3">
                     <label>Wilayah Asal KKN*</label>
-                    <input class="form-control mb-2" type="text" name="origin_village" id="origin_village" placeholder="ex: Sogo (Kelurahan)"
+                    <input class="form-control mb-2" type="text" name="origin_village" id="origin_village" placeholder="Kelurahan (Contoh: Sogo)"
                         value="{{old('origin_village')}}">
-                    <input class="form-control mb-2" type="text" name="origin_district" id="origin_district"
-                        placeholder="ex: Babat (Kecamatan)" value="{{old('origin_district')}}">
+                    <input class="form-control mb-2" type="text" name="origin_district" id="origin_district"placeholder="Kecamatan (Contoh: Babat)"
+                        value="{{old('origin_district')}}">
                     <select class="form-select" name="origin_city" id="origin_city">
                         <option selected disabled>Pilih Kota</option>
                         @foreach ($cities as $city)
@@ -108,7 +108,7 @@
 
                 <div class="mb-3">
                     <label>Alasan (Tidak wajib)</label>
-                    <textarea class="form-control" name="reason" id="reason" cols="30" rows="10" placeholder="Alasan">{{old('reason')}}</textarea>
+                    <textarea class="form-control" name="reason" id="reason" cols="30" rows="10" placeholder="Contoh: Tidak mendapat ijin dari orang tua.">{{old('reason')}}</textarea>
                 </div>
                 <button class="btn btn-primary" type="submit">Kirim</button>
             </form>

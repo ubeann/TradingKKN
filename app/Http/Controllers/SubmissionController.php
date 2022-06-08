@@ -115,7 +115,7 @@ class SubmissionController extends Controller
     public function take(Request $request) {
         // Check cookie 
         if ($request->hasCookie('submission_id')) {
-            return redirect()->route('taken.show')->with('error', 'Anda sudah mengambil permintaan KKN, silahkan batalkan terlebih dahulu!');
+            return redirect()->route('taken.show')->with('error', 'Anda sudah mengambil permintaan penukaran KKN, silahkan batalkan terlebih dahulu!');
         }
 
         // Validate request
@@ -136,7 +136,7 @@ class SubmissionController extends Controller
     public function show(Request $request) {
         // Check cookie
         if (!$request->hasCookie('submission_id')) {
-            return redirect()->route('landing')->with('error', 'Anda belum mengambil permintaan KKN, silahkan ambil terlebih dahulu!');
+            return redirect()->route('landing')->with('error', 'Anda belum mengambil permintaan penukaran KKN, silahkan ambil terlebih dahulu!');
         } else {
             $submission = Submission::find($request->cookie('submission_id'));
             return view('show', compact('submission'));
@@ -146,13 +146,18 @@ class SubmissionController extends Controller
     public function cancel(Request $request) {
         // Check cookie
         if (!$request->hasCookie('submission_id')) {
-            return redirect()->route('landing')->with('error', 'Anda belum mengambil permintaan KKN, silahkan ambil terlebih dahulu!');
+            return redirect()->route('landing')->with('error', 'Anda belum mengambil permintaan penukaran KKN, silahkan ambil terlebih dahulu!');
         } else {
+            // Update submission status to open
             $submission = Submission::find($request->cookie('submission_id'));
             $submission->update([
                 'status' => 'open',
             ]);
-            return redirect()->route('landing')->with('success', 'Permintaan anda berhasil dibatalkan, silahkan mengambil kembali permintaan KKN yang lain.');
+
+            // Delete cookie
+            $cookie = cookie('submission_id', null, -1);
+
+            return redirect()->route('landing')->withCookie($cookie)->with('success', 'Permintaan anda berhasil dibatalkan, silahkan mengambil kembali permintaan penukaran KKN yang lain.');
         }
     }
 }

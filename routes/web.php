@@ -23,3 +23,4 @@ Route::prefix('taken')->name('taken.')->group(function () {
     Route::get('/', [SubmissionController::class, 'show'])->name('show');
     Route::post('taken', [SubmissionController::class, 'take'])->name('store');
 });
+Route::delete('cancel', [SubmissionController::class, 'cancel'])->name('cancel');
