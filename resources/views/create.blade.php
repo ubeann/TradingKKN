@@ -11,6 +11,22 @@
 </head>
 <body>
     Create
+    {{-- Show Error --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    {{-- Show Session Error --}}
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <form action="{{route('create.store')}}" method="post">
         @csrf
         <span>Data Diri</span></br>
@@ -45,6 +61,10 @@
             <input type="checkbox" id="{{$city}}" name="destination_city[]" value="{{$city}}" @if (in_array($city, old('destination_city') ?? [])) checked @endif>
             <label for="{{$city}}">{{$city}}</label><br>
         @endforeach
+        <hr>
+
+        <span>Alasan</span></br>
+        <textarea name="reason" id="reason" cols="30" rows="10" placeholder="Alasan">{{old('reason')}}</textarea></br>
         <input type="submit" value="Create">
     </form>
 
