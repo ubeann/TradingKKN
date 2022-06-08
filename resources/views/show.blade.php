@@ -137,7 +137,14 @@
                 <form style="width: 100%" action="{{route('cancel')}}" method="post">
                     @csrf
                     @method('DELETE')
-                    <button style="width: 100%" type="submit" class="btn btn-danger">Batalkan</button>
+                    <div class="container">
+                        <div class="row">
+                            <a class="btn btn-success col" style="width: 50%" href="{{route('document.form')}}">Surat Permohonan</a>
+                        </div>
+                        <div class="row">
+                            <button style="width: 50%" type="submit" class="btn btn-danger col">Batalkan</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
