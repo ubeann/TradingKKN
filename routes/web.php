@@ -24,3 +24,4 @@ Route::prefix('taken')->name('taken.')->group(function () {
     Route::post('taken', [SubmissionController::class, 'take'])->name('store');
 });
 Route::delete('cancel', [SubmissionController::class, 'cancel'])->name('cancel');
+Route::get('download/form', [SubmissionController::class, 'download'])->name('document.form');

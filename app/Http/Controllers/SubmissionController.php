@@ -160,4 +160,8 @@ class SubmissionController extends Controller
             return redirect()->route('landing')->withCookie($cookie)->with('success', 'Permintaan anda berhasil dibatalkan, silahkan mengambil kembali permintaan penukaran KKN yang lain.');
         }
     }
+
+    public function download() {
+        return response()->download(public_path('/documents/SURAT PERMOHONAN PINDAH LOKASI KKN.docx'));
+    }
 }

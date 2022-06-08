@@ -7,7 +7,7 @@
     <title>Detail Penukaran</title>
 </head>
 <body>
-    
+    <a href="{{route('document.form')}}">Download Format Surat Permohonan (Tidak Resmi, Silahkan Sesuaikan Kembali)</a>
     <form action="{{route('cancel')}}" method="post">
         @csrf
         <button type="submit" class="btn btn-danger">Batalkan</button>
