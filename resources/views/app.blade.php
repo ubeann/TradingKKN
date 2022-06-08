@@ -32,7 +32,7 @@
     <link href="{{ asset('kross/css/checkbox.css') }}" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-primary">
     {{-- <x-navbar /> --}}
     @yield('content')
     <!-- jQuery -->

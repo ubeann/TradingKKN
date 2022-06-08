@@ -21,10 +21,18 @@
 @section('content')
 <section class="hero-area bg-primary" id="parallax">
     <div class="container">
-        <img src="{{ asset('tradingkkn.png') }}" alt="" style="position: absolute; top:1px; z-index: 99; filter: drop-shadow(5px 5px 15px rgba(34, 34, 34, 0.35));">
+        <a href="{{ route('landing') }}">
+            <img src="{{ asset('tradingkkn.png') }}" alt="" style="position: absolute; top:1px; z-index: 99; filter: drop-shadow(5px 5px 15px rgba(34, 34, 34, 0.35));">
+        </a>
         <div class="row">
             <div class="card shadow p-4 rounded-4" style="max-width: 700px">
-                <h1 class="mb-5">Data Diri Peserta</h1>
+                <h1 class="mb-5">
+                    <a href="{{ route('landing') }}">
+                        <svg style="height: 50px" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                          </svg>
+                    </a>
+                    Data Peserta</h1>
 
                 @csrf
                 {{-- Show Error --}}
@@ -39,6 +47,21 @@
                     {{ session('error') }}
                 </div>
                 @endif
+
+                <form style="width: 100%" action="{{route('cancel')}}" method="post" class="mb-4">
+                    @csrf
+                    @method('DELETE')
+                    <div class="container">
+                        <div class="row">
+                            <a class="btn btn-success col mb-2 rounded-3" style="width: 50%" href="{{route('document.form')}}">Unduh Surat Permohonan</a>
+                        </div>
+                        <div class="row">
+                            <button style="width: 50%" type="submit" class="btn btn-danger col rounded-3">Batal Hubungi</button>
+                        </div>
+                    </div>
+                </form>
+                <p>Apabila tidak jadi menghubungi orang ini, harap tekan tombol 'Batal Hubungi' agar orang lain bisa melihat profil orang ini</p>
+                <hr>
 
                 <div class="mb-3">
                     <label for="name">Nama</label>
@@ -74,7 +97,7 @@
                             value="Username Line: {{$submission->username_line ?? 'Tidak ada'}}" disabled>
                     @endif
                     @if ($submission->username_telegram != null)
-                        <input class="form-control mb-2" type="text" name="username_telegram" id="username_telegram" placeholder="Username Telegram (Contoh: {{\Faker\Factory::create('id_ID')->userName}})" 
+                        <input class="form-control mb-2" type="text" name="username_telegram" id="username_telegram" placeholder="Username Telegram (Contoh: {{\Faker\Factory::create('id_ID')->userName}})"
                             value="Username Telegram: {{$submission->username_telegram ?? 'Tidak ada'}}" disabled>
                     @endif
                 </div>
@@ -87,12 +110,8 @@
                         value="Kelurahan: {{$submission->origin_village}}" disabled>
                     <input class="form-control mb-2" type="text" name="origin_district" id="origin_district"placeholder="Kecamatan (Contoh: Babat)"
                         value="Kecamatan: {{$submission->origin_district}}" disabled>
-                    <select class="form-select" name="origin_city" id="origin_city">
-                        <option selected disabled>Pilih Kota</option>
-                        @foreach ($cities as $city)
-                        <option value="{{$city}}" @if ($submission->origin_city==$city) selected @endif disabled>{{$city}}</option>
-                        @endforeach
-                    </select>
+                    <input class="form-control mb-2" type="text" name="origin_district" id="origin_district"placeholder="Kecamatan (Contoh: Babat)"
+                        value="Kabupaten: {{$submission->origin_city}}" disabled>
                 </div>
 
                 <hr>
@@ -101,14 +120,6 @@
                     <div class="d-flex">
                         <div class="">
                             <label>Wilayah Tujuan Penukaran KKN</label>
-                        </div>
-                        <div class="checkbox d-flex justify-content-end" style="width: 100%">
-                            <label class="" for="all">
-                                <input class="checkbox-input"  type="checkbox" id="all" name="all" value="all" @if (old('all')=='all' ) checked @endif disabled>
-                                <span class="checkbox-tile" style="height: 40px; padding: .5rem; min-height: 40px; width: 75px;">
-                                    <span class="checkbox-label"> Semua</span>
-                                </span>
-                            </label>
                         </div>
                     </div>
                     <div class="d-flex flex-row flex-wrap">
@@ -134,18 +145,6 @@
                     <label>Alasan</label>
                     <textarea class="form-control" name="reason" id="reason" cols="30" rows="10" placeholder="Contoh: Tidak mendapat ijin dari orang tua." disabled>{{$submission->reason}}</textarea>
                 </div>
-                <form style="width: 100%" action="{{route('cancel')}}" method="post">
-                    @csrf
-                    @method('DELETE')
-                    <div class="container">
-                        <div class="row">
-                            <a class="btn btn-success col" style="width: 50%" href="{{route('document.form')}}">Surat Permohonan</a>
-                        </div>
-                        <div class="row">
-                            <button style="width: 50%" type="submit" class="btn btn-danger col">Batalkan</button>
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
     </div>

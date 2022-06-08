@@ -3,10 +3,18 @@
 @section('content')
 <section class="hero-area bg-primary" id="parallax">
     <div class="container">
-        <img src="{{ asset('tradingkkn.png') }}" alt="" style="position: absolute; top:1px; z-index: 99; filter: drop-shadow(5px 5px 15px rgba(34, 34, 34, 0.35));">
+        <a href="{{ route('landing') }}">
+            <img src="{{ asset('tradingkkn.png') }}" alt="" style="position: absolute; top:1px; z-index: 99; filter: drop-shadow(5px 5px 15px rgba(34, 34, 34, 0.35));">
+        </a>
         <div class="row">
             <form class="card shadow p-4 rounded-4" action="{{route('create.store')}}" method="post" style="max-width: 700px">
-                <h1 class="mb-5">Data Diri</h1>
+                <h1 class="mb-5">
+                    <a href="{{ route('landing') }}">
+                        <svg style="height: 50px" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                          </svg>
+                    </a>
+                    Data Diri</h1>
 
                 @csrf
                 {{-- Show Error --}}

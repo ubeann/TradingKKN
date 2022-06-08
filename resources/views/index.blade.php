@@ -1,32 +1,22 @@
-{{-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Landing</title>
-</head>
-<body>
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-</body>
-</html> --}}
-
 @extends('app')
 
 @section('content')
 <section class="hero-area bg-primary" id="parallax">
     <div class="container">
-        <img src="{{ asset('tradingkkn.png') }}" alt="" style="position: absolute; top:1px; z-index: 99; filter: drop-shadow(5px 5px 15px rgba(34, 34, 34, 0.35));">
+        <a href="{{ route('landing') }}">
+            <img src="{{ asset('tradingkkn.png') }}" alt="" style="position: absolute; top:1px; z-index: 99; filter: drop-shadow(5px 5px 15px rgba(34, 34, 34, 0.35));">
+        </a>
         {{-- <div class="pt-5"></div> --}}
-        <div class="p-4 rounded-4 mb-4 d-flex flex-row align-items-center justify-content-center gap-3" style="max-width: 700px">
-            <a href="https://trakteer.id/overdose/tip" class="btn btn-primary rounded-4" target="__blank">Donasi</a>
-            <h4 class="text-white">Created by
+        <div class="p-4 rounded-4 mb-4 d-flex flex-row align-items-center justify-content-center gap-3" style="max-width: 700px; z-index: 99;">
+            <a href="https://trakteer.id/overdose/tip" style="z-index: 99" class="btn btn-primary rounded-4" target="__blank">Donasi</a>
+            <h4 class="text-white" style="z-index: 99">Created by
                 <a href="https://www.instagram.com/overdose.std/" class="text-white">@Overdose.std</a></h4>
         </div>
+        @if (session('success'))
+            <div class="alert alert-success my-4 px-2" style="max-width: 700px">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="row px-2 gap-3 mb-4" style="max-width: 700px">
             <a href="{{ route('create.form') }}" class="btn btn-primary rounded-4 col">
                 <svg style="height: 24px" class="me-2" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -133,10 +123,11 @@
                     <div class="card shadow p-4 rounded-4 mt-4 me-4" action="{{route('create.store')}}" method="post" style="max-width: 700px">
                         <div class="row">
                             <div class="col-sm-5 col-12">
-                                <h4>Lokasi saat ini : </br>{{$submission->origin_city}}</h4>
+                                <h4><span class="h5">Lokasi saat ini : </span></br><strong>{{$submission->origin_city}}</strong></h4>
                             </div>
                             <div class="col-sm-6 col-12">
                                 <p class="m-0"><strong>Nama : </strong>{{$submission->name}}</p>
+                                <p class="m-0"><strong>Gender : </strong>{{$submission->gender}}</p>
                                 <p class="m-0"><strong>Lokasi diinginkan : </strong>{{join(', ', $submission->destination)}}</p>
                             </div>
                             <div class="col-sm-1 col-12">
@@ -152,7 +143,7 @@
             @empty
                 <div class="card shadow p-4 rounded-4 mt-4 me-4" action="{{route('create.store')}}" method="post" style="max-width: 700px">
                     <div class="row">
-                        <div class="col-sm-12 col-12">
+                        <div class="col-12">
                             <h4>Sayang sekali, tidak ada permintaan yang ditemukan</h4>
                         </div>
                     </div>
