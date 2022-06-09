@@ -21,7 +21,7 @@
 @section('content')
 <section class="hero-area bg-primary" id="parallax">
     <div class="container">
-        <a href="{{ route('landing') }}">
+        <a href="{{ route('landing') }}" style="text-decoration: none">
             <img src="{{ asset('tradingkkn.png') }}" alt="" style="position: absolute; top:1px; z-index: 99; filter: drop-shadow(5px 5px 15px rgba(34, 34, 34, 0.35));">
         </a>
         <div class="row">
@@ -72,6 +72,23 @@
 
                 <div class="mb-3">
                     <label for="gender">Gender</label>
+                    <div class="form-group d-flex flex-column">
+                        <label for="male" class="row px-3">
+                            <input type="radio" name="gender"
+                            @if ($submission->gender=='male' ) checked @endif disabled/>
+                            <div class="male box">
+                            <span>Laki-laki</span>
+                            </div>
+                        </label>
+                        <label for="female" class="row px-3">
+                            <input type="radio" name="gender"
+                            @if ($submission->gender=='female' ) checked @endif disabled/>
+                            <div class="female box">
+                            <span>Perempuan</span>
+                            </div>
+                        </label>
+                    </div>
+{{--
                     <div class="form-check">
                         <input class="" type="radio" id="male" name="gender" value="male" @if ($submission->gender=='male' )
                             checked @endif disabled>
@@ -81,7 +98,7 @@
                         <input class="" type="radio" id="female" name="gender" value="female" @if ($submission->gender=='female' )
                             checked @endif disabled>
                             <label for="female">Perempuan</label>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <hr>
@@ -89,16 +106,25 @@
                 <div class="mb-3">
                     <label>Kontak</label>
                     @if ($submission->phone != null)
-                        <input class="form-control mb-2" type="text" name="phone" id="phone" placeholder="Nomor Telepon / WA (Contoh: {{\Faker\Factory::create('id_ID')->phoneNumber}})"
-                            value="Nomor Telepon / WA: {{$submission->phone ?? 'Tidak ada'}}" disabled>
+                    <br><span for="">No Telp/Wa</span>
+                    <div class="d-flex flex-row">
+                        <input class="form-control mb-2" type="text" name="phone" id="phone" placeholder="No Telp./WA (Contoh: {{\Faker\Factory::create('id_ID')->phoneNumber}})"
+                            value="{{$submission->phone ?? 'Tidak ada'}}" disabled>
+                        <a href="https://wa.me/{{ $submission->phone }}" class="btn btn-primary btn-sm mb-2 ms-2" target="__blank">Hubungi Wa</a>
+                    </div>
                     @endif
                     @if ($submission->username_line != null)
+                    <span for="">Username Line</span>
                         <input class="form-control mb-2" type="text" name="username_line" id="username_line" placeholder="Username Line (Contoh: {{\Faker\Factory::create('id_ID')->userName}})"
-                            value="Username Line: {{$submission->username_line ?? 'Tidak ada'}}" disabled>
+                            value="{{$submission->username_line ?? 'Tidak ada'}}" disabled>
                     @endif
                     @if ($submission->username_telegram != null)
+                    <span for="">Username Telegram</span>
+                    <div class="d-flex flex-row">
                         <input class="form-control mb-2" type="text" name="username_telegram" id="username_telegram" placeholder="Username Telegram (Contoh: {{\Faker\Factory::create('id_ID')->userName}})"
-                            value="Username Telegram: {{$submission->username_telegram ?? 'Tidak ada'}}" disabled>
+                            value="{{$submission->username_telegram ?? 'Tidak ada'}}" disabled>
+                            <a href="https://t.me/{{ $submission->username_telegram }}" class="btn btn-primary btn-sm mb-2 ms-2" target="__blank">Hubungi Tele</a>
+                    </div>
                     @endif
                 </div>
 

@@ -39,7 +39,23 @@
 
                 <div class="mb-3">
                     <label for="gender">Gender*</label>
-                    <div class="form-check">
+                    <div class="form-group d-flex flex-column">
+                        <label for="male" class="row px-3">
+                            <input type="radio" name="gender" value="male" id="male"
+                            @if (old('gender')=='male' ) checked @endif/>
+                            <div class="male box">
+                            <span>Laki-laki</span>
+                            </div>
+                        </label>
+                        <label for="female" class="row px-3">
+                            <input type="radio" name="gender" value="female" id="female"
+                            @if (old('gender')=='female' ) checked @endif/>
+                            <div class="female box">
+                            <span>Perempuan</span>
+                            </div>
+                        </label>
+                    </div>
+                    {{-- <div class="form-check">
                         <input class="" type="radio" id="male" name="gender" value="male" @if (old('gender')=='male' )
                             checked @endif>
                         <label for="male">Laki-laki</label>
@@ -48,14 +64,14 @@
                         <input class="" type="radio" id="female" name="gender" value="female" @if (old('gender')=='female' )
                             checked @endif>
                             <label for="female">Perempuan</label>
-                    </div>
+                    </div> --}}
                 </div>
 
                 <hr>
 
                 <div class="mb-3">
                     <label>Kontak (Minimal 1)*</label>
-                    <input class="form-control mb-2" type="text" name="phone" id="phone" placeholder="Nomor Telepon / WA (Contoh: {{\Faker\Factory::create('id_ID')->phoneNumber}})"
+                    <input class="form-control mb-2" type="text" name="phone" id="phone" placeholder="No Telp/WA (Contoh: +628123456789)"
                         value="{{old('phone')}}">
                     <input class="form-control mb-2" type="text" name="username_line" id="username_line" placeholder="Username Line (Contoh: {{\Faker\Factory::create('id_ID')->userName}})"
                         value="{{old('username_line')}}">

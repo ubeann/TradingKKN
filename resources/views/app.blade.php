@@ -17,6 +17,7 @@
     <link rel="manifest" href={{ asset('favicon"/site.webmanifest"') }}>
 
     <!-- ** Plugins Needed for the Project ** -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- slick slider -->
     <link rel="stylesheet" href="{{ asset('kross/plugins/slick/slick.css') }}">
     <!-- themefy-icon -->
@@ -28,6 +29,7 @@
     integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link href="{{ asset('kross/css/primary.css') }}" rel="stylesheet">
     <link href="{{ asset('kross/css/checkbox.css') }}" rel="stylesheet">
+    <link href="{{ asset('kross/css/radio.css') }}" rel="stylesheet">
 </head>
 
 <body class="bg-primary">
