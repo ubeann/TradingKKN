@@ -6,7 +6,7 @@
     <title>Trading KKN</title>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Creative Portfolio Template">
+    <meta name="description" content="Tempat untuk ngelist orang-orang yg pengin tuker KKN :D">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta name="author" content="Trading KKN">
     <meta name="generator" content="Trading KKN">
@@ -17,8 +17,6 @@
     <link rel="manifest" href={{ asset('favicon"/site.webmanifest"') }}>
 
     <!-- ** Plugins Needed for the Project ** -->
-    <!-- Bootstrap -->
-    {{-- <link rel="stylesheet" href="{{ asset('kross/plugins/bootstrap/bootstrap.min.css') }}"> --}}
     <!-- slick slider -->
     <link rel="stylesheet" href="{{ asset('kross/plugins/slick/slick.css') }}">
     <!-- themefy-icon -->
