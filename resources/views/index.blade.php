@@ -127,7 +127,7 @@
                             </div>
                             <div class="col-sm-6 col-12">
                                 <p class="m-0"><strong>Nama : </strong>{{$submission->name}}</p>
-                                <p class="m-0"><strong>Gender : </strong>{{$submission->gender}}</p>
+                                <p class="m-0"><strong>Gender : </strong>{{$submission->gender == 'male' ? 'Laki-laki' : 'Perempuan'}}</p>
                                 <p class="m-0"><strong>Lokasi diinginkan : </strong>{{join(', ', $submission->destination)}}</p>
                             </div>
                             <div class="col-sm-1 col-12">
