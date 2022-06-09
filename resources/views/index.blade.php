@@ -54,7 +54,24 @@
                 </div>
                 @endif
 
-                <div class="mb-3">
+                <div class="form-group d-flex flex-column mb-3">
+                    <label for="gender">Gender</label>
+                    <label for="male" class="row px-3">
+                        <input type="radio" name="gender" value="male" id="male"
+                        @if (request()->gender=='male' ) checked @endif/>
+                        <div class="male box">
+                        <span>Laki-laki</span>
+                        </div>
+                    </label>
+                    <label for="female" class="row px-3">
+                        <input type="radio" name="gender" value="female" id="female"
+                        @if (request()->gender=='female' ) checked @endif/>
+                        <div class="female box">
+                        <span>Perempuan</span>
+                        </div>
+                    </label>
+                </div>
+                {{-- <div class="mb-3">
                     <label for="gender">Gender</label>
                     <div class="form-check">
                         <input class="" type="radio" id="male" name="gender" value="male" @if (request()->gender=='male' )
@@ -66,7 +83,7 @@
                             checked @endif>
                             <label for="female">Perempuan</label>
                     </div>
-                </div>
+                </div> --}}
 
                 <hr>
 

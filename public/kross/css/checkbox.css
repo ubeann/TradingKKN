@@ -52,12 +52,12 @@
     opacity: 1;
 }
 .checkbox-tile {
-    margin: .5rem;
+    margin: .2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 8rem;
+    width: 7.5rem;
     min-height: 4rem;
     border-radius: 0.5rem;
     border: 2px solid #b5bfd9;
